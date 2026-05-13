@@ -1,0 +1,23 @@
+from collections import deque
+
+F = deque()
+elements = [2, 3, 1, 4, 5, -1]
+
+print("--- مرحلة الإضافة (Enqueue) ---")
+
+for x in elements:
+    if x >= 0:
+        F.append(x)
+        print(f"Enqueue integer: {x}")
+    else:
+        print(f"Enqueue integer: {x} (ignored since it's negative)")
+
+print(f"\nQueue contents: {' '.join(map(str, F))}")
+
+print("\n--- مرحلة الحذف (Dequeue) ---")
+
+while len(F) > 0:
+    removed = F.popleft()
+    print(f"Dequeued element: {removed}")
+
+print("\nQueue is now empty.")

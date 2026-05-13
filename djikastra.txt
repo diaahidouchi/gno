@@ -1,0 +1,43 @@
+graph = {
+    1: [(2, 5), (3, 20)],
+    2: [(5, 10)],
+    3: [(5, 20), (6, 30), (1, 15)],
+    4: [(5, 25), (6, 30)],
+    5: [(3, 25), (7, 10)],
+    6: [],
+    7: [(4, 5)],
+}
+
+def dijkstra(graph, source):
+    M = float('inf')
+    pi = {x: M for x in graph}
+    pred = {x: None for x in graph}
+    pi[source] = 0
+    Q = list(graph.keys())
+    
+    while Q:
+        x = min(Q, key=lambda node: pi[node])
+        Q.remove(x)
+        
+        for y, w in graph[x]:
+            if pi[y] > pi[x] + w:
+                pi[y] = pi[x] + w
+                pred[y] = x
+    return pi, pred
+
+def get_full_path(pred, target):
+    path = []
+    curr = target
+    while curr is not None:
+        path.append(curr)
+        curr = pred[curr]
+    return list(reversed(path))
+
+pi, pred = dijkstra(graph, 1)
+
+print(f"{'Station':<10} {'Min Time':<10} {'Predecessor'}")
+print("-" * 35)
+for node in sorted(graph):
+    d = pi[node] if pi[node] != float('inf') else "inf"
+    p = pred[node] if pred[node] is not None else "-"
+    print(f"{node:<10} {d:<10} {p}")

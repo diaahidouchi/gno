@@ -1,0 +1,51 @@
+adj = {
+    0: [1],
+    1: [0, 2],
+    2: [],
+    3: [2]
+}
+
+n = len(adj)
+in_degrees = [0] * n
+out_degrees = [0] * n
+
+for u in adj:
+    out_degrees[u] = len(adj[u])
+    for v in adj[u]:
+        in_degrees[v] += 1
+
+total_degrees = [in_degrees[i] + out_degrees[i] for i in range(n)]
+
+for i in range(n):
+    print(f"Vertex {i}: Out={out_degrees[i]}, In={in_degrees[i]}, Total={total_degrees[i]}")
+
+print(f"Max degree: {max(total_degrees)}")
+print(f"Min degree: {min(total_degrees)}")
+
+pendant = [i for i in range(n) if total_degrees[i] == 1]
+isolated = [i for i in range(n) if total_degrees[i] == 0]
+
+print(f"Pendant vertices: {pendant}")
+print(f"Isolated vertices: {isolated}") /////////////////////////////matrix = [
+    [0, 1, 0, 0],
+    [1, 0, 1, 0],
+    [0, 0, 0, 0],
+    [0, 0, 1, 0]
+]
+
+n = len(matrix)
+out_deg = [sum(row) for row in matrix]
+in_deg = [sum(matrix[i][j] for i in range(n)) for j in range(n)]
+total_deg = [in_deg[i] + out_deg[i] for i in range(n)]
+
+for i in range(n):
+    print(f"Vertex {i}: In={in_deg[i]}, Out={out_deg[i]}, Total={total_deg[i]}")
+
+print(f"Max degree: {max(total_deg)}")
+print(f"Min degree: {min(total_deg)}")
+
+pendant = [i for i in range(n) if total_deg[i] == 1]
+isolated = [i for i in range(n) if total_deg[i] == 0]
+
+print(f"Pendant: {pendant}")
+print(f"Isolated: {isolated}")

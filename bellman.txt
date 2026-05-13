@@ -1,0 +1,28 @@
+def bellman_ford(nodes, edges, source):
+    dist = {node: float('inf') for node in nodes}
+    dist[source] = 0
+    
+    for _ in range(len(nodes) - 1):
+        for u, v, w in edges:
+            if dist[u] != float('inf') and dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                
+    for u, v, w in edges:
+        if dist[u] != float('inf') and dist[u] + w < dist[v]:
+            return None
+            
+    return dist
+
+nodes = ['A', 'B', 'C', 'D', 'L', 'K', 'J', 'E']
+edges = [
+    ('A', 'B', 1), ('B', 'A', 1),
+    ('B', 'C', 1), ('C', 'B', 1),
+    ('C', 'D', 1), ('D', 'C', 1),
+    ('B', 'K', 1), ('K', 'B', 1),
+    ('K', 'L', 1), ('L', 'K', 1),
+    ('C', 'J', 1), ('J', 'C', 1),
+    ('J', 'E', -2)
+]
+
+result = bellman_ford(nodes, edges, 'A')
+print(result)
